@@ -1,0 +1,13 @@
+.col-3{
+    padding-bottom: 1rem;
+    .card-img-top{
+        height: 13rem;
+    }
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+.sidePanel{
+    position: fixed;
+}

@@ -11,7 +11,7 @@ import { ProductService } from '../../../service/product/product.service';
 })
 export class ProductsComponent implements OnInit {
   isNewProductCardOpen: boolean = false;
-  prodObj: any = {
+  inputObj: any = {
     "productId": 0,
     "productSku": "",
     "productName": "",
@@ -20,19 +20,21 @@ export class ProductsComponent implements OnInit {
     "productDescription": "",
     "createdDate": new Date(),
     "deliveryTimeSpan": "",
-    "categoryId": 2147483647,
+    "categoryId": 0,
     "productImageUrl": "",
     "userId": 0
   }
   categoryList: any[] = [];
+  prodList: any[] = [];
   constructor(
     private prodService: ProductService
   ) { }
 
   ngOnInit(): void {
     this.getAllCategory();
+    this.getAllProds();
   }
-  openAddProd() {
+  openSidePanel() {
     this.isNewProductCardOpen = true;
   }
   closeAddProd() {
@@ -41,7 +43,58 @@ export class ProductsComponent implements OnInit {
   getAllCategory() {
     this.prodService.getCategory().subscribe((res: any) => {
       this.categoryList = res.data;
-      console.log(this.categoryList)
+      console.log(this.categoryList);
     })
+  }
+  getAllProds() {
+    this.prodService.getAllProds().subscribe((res: any) => {
+      this.prodList = res.data;
+      console.log(this.prodList)
+    })
+  }
+  onSave() {
+    if (!this.inputObj.productSku || !this.inputObj.productName || !this.inputObj.categoryId) {
+      return alert('SKU, Name & Category fields are mandatory');
+    }
+    this.prodService.createProd(this.inputObj).subscribe((res: any) => {
+      if (res.result) {
+        alert('Product created');
+
+      } else {
+        alert(res.message);
+      }
+    });
+  }
+  onUpdate(){
+    if (!this.inputObj.productSku || !this.inputObj.productName || !this.inputObj.categoryId) {
+      return alert('SKU, Name & Category fields are mandatory');
+    }
+    this.prodService.upDateProductService(this.inputObj).subscribe((res: any)=>{
+      debugger;
+      if (res.result) {
+        alert(res.message);
+      } else {
+        alert(res);
+      }
+    })
+  }
+  onEdit(item: any) {
+    this.inputObj = item;
+    this.openSidePanel();
+  }
+  onDelete(item: any){
+    const isDelete = confirm('Are you sure want to delete ?');
+    if(isDelete){
+      this.prodService.deleteProductService(item.productId).subscribe((res:any)=>{
+        console.log(res);
+        if(res.result){
+         alert('Product Deleted')
+        }
+        else{
+          alert('Some error occurred')
+        }
+        })
+    }
+
   }
 }
