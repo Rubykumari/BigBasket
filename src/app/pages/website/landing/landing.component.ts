@@ -10,12 +10,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './landing.component.scss'
 })
 export class LandingComponent {
-  productList$: Observable<any>
+  productList: Observable<any>
 constructor(private prodService: ProductService){
-  this.productList$ = this.prodService.getAllProds().pipe(map((res:any)=>{
+  this.productList = this.prodService.getAllProds().pipe(map((res:any)=>{
     return res.data;
   }));
-  console.log(this.productList$);
+  console.log(this.productList);
 }
 
 }
