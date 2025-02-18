@@ -13,6 +13,9 @@ export class ProductService {
   getCategory() {
     return this.httpClient.get(Constant.API_COMMON_POINT + 'GetAllCategory');
   }
+  getProdByCategory(catId:any){
+    return this.httpClient.get(Constant.API_COMMON_POINT + 'GetAllProductsByCategoryId?id=' + catId)
+  }
   createProd(prodObj:any) {
     return this.httpClient.post(Constant.API_COMMON_POINT + 'CreateProduct', prodObj)
   }

@@ -4,6 +4,8 @@ import { LayoutComponent } from './pages/admin/layout/layout.component';
 import { ProductsComponent } from './pages/admin/products/products.component';
 import { CategoriesComponent } from './pages/admin/categories/categories.component';
 import { LandingComponent } from './pages/website/landing/landing.component';
+import { CategoryProductsComponent } from './pages/website/category-products/category-products.component';
+import { WebProdsComponent } from './pages/website/web-prods/web-prods.component';
 
 export const routes: Routes = [
     {
@@ -16,8 +18,18 @@ export const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'shop',
-        component: LandingComponent
+        path: '',
+        component: LandingComponent,
+        children: [
+            {
+                path: 'shop',
+                component: WebProdsComponent
+            },
+            {
+                path: 'allProds/:id',
+                component: CategoryProductsComponent
+            }
+        ]
 
     },
     {

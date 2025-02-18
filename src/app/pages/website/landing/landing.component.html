@@ -16,16 +16,9 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-semibold text-uppercase  me-1 text-danger" href="#"
-                            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            home
-                        </a>
+                            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                         <ul class="dropdown-menu  " aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item " href="#">Fashion 1</a></li>
-                            <li><a class="dropdown-item" href="#">Fashion 2</a></li>
-                            <li><a class="dropdown-item" href="#">furniture 1</a></li>
-                            <li><a class="dropdown-item" href="#">furniture 2</a></li>
-                            <li><a class="dropdown-item" href="#">Electronics 1</a></li>
-                            <li><a class="dropdown-item" href="#">Electronics 1</a></li>
+                            <li *ngFor="let category of cateList | async" ><a class="dropdown-item " (click)="navigateToProdPage(category.categoryId)">{{category.categoryName}}</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -138,36 +131,4 @@
         </div>
     </nav>
 </header>
-<div class="container-fluid py-5">
-    <div class="container py-5">
-        <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-            <h1 class="display-4">Bestseller Products</h1>
-            <p>Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which
-                looks reasonable.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-6 col-xl-4" *ngFor="let item of productList | async">
-                <div class="p-4 rounded bg-light">
-                    <div class="row align-items-center img_container">
-                        <div class="col-6">
-                            <img [src]="item.productImageUrl" class="card-img-top product-image" alt="Product Image">
-                        </div>
-                        <div class="col-6">
-                            <a href="#" class="h5">{{item.productShortName}}</a>
-                            <div class="d-flex my-3">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <h4 class="product-price">Rs. {{item.productPrice}}</h4>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
-                                <i class="fa fa-shopping-bag me-2 text-primary">Add to cart</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<router-outlet></router-outlet>
